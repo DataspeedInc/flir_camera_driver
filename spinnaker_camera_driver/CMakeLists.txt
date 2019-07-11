@@ -30,11 +30,11 @@ catkin_package(CATKIN_DEPENDS
 # their website during this step in the build process.
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules")
 find_package(Spinnaker QUIET)
-if(NOT Spinnaker_FOUND)
-  message(STATUS "libSpinnaker not found in system library path")
-  include(cmake/DownloadSpinnaker.cmake)
-  download_spinnaker(Spinnaker_LIBRARIES Spinnaker_INCLUDE_DIRS)
-endif()
+# if(NOT Spinnaker_FOUND)
+#   message(STATUS "libSpinnaker not found in system library path")
+#   include(cmake/DownloadSpinnaker.cmake)
+#   download_spinnaker(Spinnaker_LIBRARIES Spinnaker_INCLUDE_DIRS)
+# endif()
 
 message(STATUS "libSpinnaker library: ${Spinnaker_LIBRARIES}")
 message(STATUS "libSpinnaker include: ${Spinnaker_INCLUDE_DIRS}")
@@ -103,16 +103,16 @@ install(TARGETS
 
 # Redistributing the flycapture .so file is permitted by the SDK EULA:
 # http://www.ptgrey.com/support/kb/data/PGR-FlyCap-SDK-LA.pdf
-if(EXISTS ${CMAKE_CURRENT_BINARY_DIR}/usr/lib)
-  install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/usr/lib/ DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-           PATTERN libQt* EXCLUDE)
-else()
-  get_filename_component(Spinnaker_LIB_DIR ${Spinnaker_LIBRARIES} DIRECTORY)
-  file(READ ${PROJECT_SOURCE_DIR}/cmake/install_files filenames)
-  foreach(filename ${filenames})
-    install(FILES ${Spinnaker_LIB_DIR}/${filename} DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION})
-  endforeach()
-endif()
+# if(EXISTS ${CMAKE_CURRENT_BINARY_DIR}/usr/lib)
+#   install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/usr/lib/ DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+#            PATTERN libQt* EXCLUDE)
+# else()
+#   get_filename_component(Spinnaker_LIB_DIR ${Spinnaker_LIBRARIES} DIRECTORY)
+#   file(READ ${PROJECT_SOURCE_DIR}/cmake/install_files filenames)
+#   foreach(filename ${filenames})
+#     install(FILES ${Spinnaker_LIB_DIR}/${filename} DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION})
+#   endforeach()
+# endif()
 
 install(FILES nodelet_plugins.xml DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION} )
 
