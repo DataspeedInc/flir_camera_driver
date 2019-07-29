@@ -216,6 +216,13 @@ void SpinnakerCamera::connect()
 
     try
     {
+	  // Set buffer mode to newest first, to always transmit first the most recent frames.
+      pCam_->TLStream.StreamBufferHandlingMode.SetValue(Spinnaker::StreamBufferHandlingMode_NewestFirstOverwrite);
+      
+      // Set the buffer count mode to manual, and limit number of buffers to 1 per camera.
+      pCam_->TLStream.StreamDefaultBufferCountMode.SetValue(Spinnaker::StreamDefaultBufferCountMode_Manual);
+      pCam_->TLStream.StreamDefaultBufferCount.SetValue(1);
+		
       // Initialize Camera
       pCam_->Init();
 
