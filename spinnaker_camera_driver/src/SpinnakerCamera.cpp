@@ -336,7 +336,7 @@ void SpinnakerCamera::grabImage(sensor_msgs::Image* image, const std::string& fr
 
       if (image_ptr->IsIncomplete())
       {
-        throw std::runtime_error("[SpinnakerCamera::grabImage] Image received from camera " + std::to_string(serial_) +
+        ROS_ERROR_STREAM("[SpinnakerCamera::grabImage] Image received from camera " << std::to_string(serial_) <<
                                  " is incomplete.");
       }
       else
@@ -440,8 +440,7 @@ void SpinnakerCamera::grabImage(sensor_msgs::Image* image, const std::string& fr
     }
     catch (const Spinnaker::Exception& e)
     {
-      throw std::runtime_error("[SpinnakerCamera::grabImage] Failed to retrieve buffer with error: " +
-                               std::string(e.what()));
+      ROS_ERROR_STREAM("[SpinnakerCamera::grabImage] Failed to retrieve buffer with error: " << e.what());
     }
   }
   else if (pCam_)
