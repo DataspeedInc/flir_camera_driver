@@ -572,7 +572,10 @@ private:
             // Get the image from the camera library
             NODELET_DEBUG_ONCE("Starting a new grab from camera with serial {%d}.", spinnaker_.getSerial());
             spinnaker_.grabImage(&wfov_image->image, frame_id_);
-
+            if (wfov_image->image.height == 0) {
+              break;
+            }
+              
             // Set other values
             wfov_image->header.frame_id = frame_id_;
 
