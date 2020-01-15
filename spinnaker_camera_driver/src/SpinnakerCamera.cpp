@@ -429,7 +429,17 @@ void SpinnakerCamera::grabImage(sensor_msgs::Image* image, const std::string& fr
           }
           else if (bitsPerPixel == 24)
           {
-            imageEncoding = sensor_msgs::image_encodings::RGB8;
+            switch (image_ptr->GetPixelFormat()) {
+              case Spinnaker::PixelFormat_BGR8:
+                imageEncoding = sensor_msgs::image_encodings::BGR8;
+                break;
+              case Spinnaker::PixelFormat_RGB8:
+                imageEncoding = sensor_msgs::image_encodings::RGB8;
+                break;
+              default:
+                ROS_WARN("Unsupported 24-bit pixel encoding (%d)", image_ptr->GetPixelFormat());
+                break;
+            }
           }
           else
           {
