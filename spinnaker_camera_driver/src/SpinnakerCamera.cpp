@@ -459,6 +459,9 @@ void SpinnakerCamera::grabImage(sensor_msgs::Image* image, const std::string& fr
     catch (const Spinnaker::Exception& e)
     {
       ROS_ERROR_STREAM("[SpinnakerCamera::grabImage] Failed to retrieve buffer with error: " << e.what());
+      if (e.GetError() == Spinnaker::Error::SPINNAKER_ERR_NOT_INITIALIZED) {
+        throw CameraNotRunningException("[SpinnakerCamera::grabImage] Camera is no longer running");
+      }
     }
   }
   else if (pCam_)
