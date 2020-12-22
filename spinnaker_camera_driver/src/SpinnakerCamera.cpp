@@ -78,7 +78,7 @@ void SpinnakerCamera::setNewConfiguration(const spinnaker_camera_driver::Spinnak
     SpinnakerCamera::connect();
   }
 
-  return; // Never configure parameters; rely on default settings in camera NVM
+  //return; // Never configure parameters; rely on default settings in camera NVM
 
   // Activate mutex to prevent us from grabbing images during this time
   std::lock_guard<std::mutex> scopedLock(mutex_);
